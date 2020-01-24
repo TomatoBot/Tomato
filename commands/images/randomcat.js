@@ -20,14 +20,13 @@ module.exports = class SayCommand extends Command {
       console.log('statusCode:', response && response.statusCode); // Print the response status code if a response was received
 
 
-    var parsedCatPicResponse = JSON.parse(body); // Parse the JSON output
+    const parsedCatPicResponse = JSON.parse(body); // Parse the JSON output
 
-    console.log(parsedCatPicResponse)
+		const catPicEmbed = new Discord.MessageEmbed()
+		.setTitle('Meow!')
+		.setImage(parsedCatPicResponse[0].url);
 
-
-    const catPicAttachment = new Discord.Attachment(parsedCatPicResponse[0].url);
-    // Send the attachment in the message channel
-    message.say(catPicAttachment);
+		message.channel.send(catPicEmbed);
 
 
 
