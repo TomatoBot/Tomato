@@ -32,7 +32,7 @@ client.registry
 	.registerCommandsIn(path.join(__dirname, 'commands'));
 
 
-	client.on("ready", () => {});
+	client.on("ready", () => logger.log('Client is ready.'));
 
 	// client.on("message", message => {}); no current use
 	client.on('debug', m => logger.log('debug', m));
