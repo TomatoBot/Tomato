@@ -16,9 +16,11 @@ module.exports = class SayCommand extends Command {
 
 	run(message, { text }) {
 
-		const attachment = new Discord.Attachment('https://thestayathomechef.com/wp-content/uploads/2018/07/Chocolate-Chip-Muffin-Recipe.jpg');
-		// Send the attachment in the message channel
-		message.say(attachment);
+		const muffinPicEmbed = new Discord.MessageEmbed()
+			.setTitle('Yummy! :P')
+			.setImage("https://thestayathomechef.com/wp-content/uploads/2018/07/Chocolate-Chip-Muffin-Recipe.jpg");
+
+			message.channel.send(muffinPicEmbed);
 
 
 	}
