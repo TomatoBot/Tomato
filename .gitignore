@@ -2,3 +2,4 @@ config.json
 log
 ./build/config.gypi
 node_modules
+.vscode/launch.json
