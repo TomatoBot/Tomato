@@ -32,7 +32,12 @@ client.registry
 	.registerCommandsIn(path.join(__dirname, 'commands'));
 
 
-	client.on("ready", () => logger.log('Client is ready.'));
+	client.on("ready", () => {
+
+		client.user.setActivity(`over ${client.guilds.size} guilds`, { type: 'WATCHING' });
+
+
+	});
 
 	// client.on("message", message => {}); no current use
 	client.on('debug', m => logger.log('debug', m));
