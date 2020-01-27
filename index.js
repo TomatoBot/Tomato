@@ -46,4 +46,29 @@ client.registry
 	process.on('unhandledRejection', error => discordUtils.discordDevLogSend(client, config.devLogChannelId, error));
 
 
+
+
+
+
+
+	client.on('guildCreate', newGuild => {
+
+	const joinedGuildSystemChannel = newGuild.systemChannel;
+
+	const tomatoWelcomingEmbed = new Discord.MessageEmbed()
+
+		.setColor('#0099ff')
+		.setTitle('Welcome!')
+		.setURL('https://example.com')
+		.setAuthor('Tomato', 'https://i.imgur.com/wSTFkRM.png', 'https://discord.js.org')
+		.setDescription(`Hello there! Thank you for adding Tomato to ${newGuild.name}!\n\nTo get started, visit the dashboard at https://example.com.\nYou can also get a list of commands with #help.\nThank you, we hope you enjoy using Tomato! :)`)
+		.setTimestamp()
+		.setFooter('Tomato', 'https://i.imgur.com/wSTFkRM.png');
+
+		joinedGuildSystemChannel.send(tomatoWelcomingEmbed);
+
+
+	});
+
+
 client.login(config.token);
