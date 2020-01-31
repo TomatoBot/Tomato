@@ -5,6 +5,8 @@ const Discord = require('discord.js');
 const config = require('./config.json');
 const discordUtils = require('./discordUtils.js');
 
+const googleTranslate = require('google-translate')(config.googleCloudAPIKey);
+
 const logger = winston.createLogger({
 	transports: [
 		new winston.transports.Console(),
@@ -39,7 +41,30 @@ client.registry
 
 	});
 
-	// client.on("message", message => {}); no current use
+	/* client.on("message", message => {
+
+		if(message.author.id === client.user.id) return; // THis is here to prevent the bot from triggering itself.
+
+
+
+
+			googleTranslate.translate(message.content, 'en', function(err, translation) {
+
+				if(translation.detectedSourceLanguage === 'en') return; // prevent the bot from triggering on english
+
+				message.channel.send(`Translated from ${translation.detectedSourceLanguage}:
+				
+				>>> ${translation.translatedText}
+				
+				
+				`)
+
+
+			  });
+			
+
+	});
+	*/
 	client.on('debug', m => logger.log('debug', m));
 	client.on('warn', m => logger.log('warn', m));
 	client.on('error', m => discordUtils.discordDevLogSend(client, config.devLogChannelId, error));

@@ -3,3 +3,4 @@ log
 ./build/config.gypi
 node_modules
 .vscode/launch.json
+output.mp3

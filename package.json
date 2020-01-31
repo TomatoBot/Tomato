@@ -10,10 +10,12 @@
   "license": "ISC",
   "dependencies": {
     "@discordjs/opus": "^0.1.0",
+    "@google-cloud/text-to-speech": "^2.1.2",
     "discord.js": "github:discordjs/discord.js",
     "discord.js-commando": "github:discordjs/Commando",
     "ffbinaries": "^1.1.4",
     "ffmpeg-static": "^3.0.0",
+    "google-translate": "^3.0.0",
     "gyp": "^0.5.0",
     "nodtts": "^1.0.1",
     "opusscript": "0.0.7",

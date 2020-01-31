@@ -1,5 +1,11 @@
 const { Command } = require('discord.js-commando');
-const nodtts =  require('nodtts');
+const textToSpeech = require('@google-cloud/text-to-speech');
+
+const fs = require('fs');
+const util = require('util');
+// Creates a client
+const TTSclient = new textToSpeech.TextToSpeechClient();
+
 
 module.exports = class SayCommand extends Command {
 	constructor(client) {
@@ -20,14 +26,39 @@ module.exports = class SayCommand extends Command {
 
 	async run(message, { messageToSpeak }) {
 
-		const usersCurrentChannel = message.member.voice.channel;
 
-		console.log(usersCurrentChannel)
+		message.delete() // Secret!
+		
 
-	  function play(usersCurrentChannel) {
-			usersCurrentChannel.join()
-		connection.play('audio.mp3');
-		}
+
+		const connection = await message.member.voice.channel.join();
+
+		// Construct the request
+		const request = {
+		  input: {text: messageToSpeak},
+		  // Select the language and SSML voice gender (optional)
+		  voice: {languageCode: 'en-US', ssmlGender: 'NEUTRAL'},
+		  // select the type of audio encoding
+		  audioConfig: {audioEncoding: 'MP3'},
+		};
+	  
+		// Performs the text-to-speech request
+		const [response] = await TTSclient.synthesizeSpeech(request);
+
+		const writeFile = util.promisify(fs.writeFile);
+		await writeFile('output.mp3', response.audioContent, 'binary');
+		console.log('Audio content written to file: output.mp3');	  
+
+		const dispatcher = connection.play('output.mp3', {
+
+			// Add some dispatcher options here!
+
+
+		  });	
+
+	  
+		
+		
 
 
 
