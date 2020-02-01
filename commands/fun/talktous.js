@@ -1,6 +1,7 @@
 const { Command } = require('discord.js-commando');
 const textToSpeech = require('@google-cloud/text-to-speech');
 const { createReadStream } = require('../../lib/mutliStream');
+const ttsConfig - require('../../config/ttsConfig.json')
 
 const fs = require('fs');
 const util = require('util');
@@ -37,7 +38,7 @@ module.exports = class SayCommand extends Command {
 		const request = {
 		  input: {text: messageToSpeak},
 		  // Select the language and SSML voice gender (optional)
-		  voice: {languageCode: 'de-DE', ssmlGender: 'MALE'},
+		  voice: {languageCode: ttsConfig.ttsVoiceLang, ssmlGender: ttsConfig.ttsVoiceGender},
 		  // select the type of audio encoding
 		  audioConfig: {audioEncoding: 'MP3'},
 		};
