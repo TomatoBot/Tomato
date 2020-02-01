@@ -1,5 +1,6 @@
 const { Command } = require('discord.js-commando');
 const textToSpeech = require('@google-cloud/text-to-speech');
+const { createReadStream } = require('../../lib/mutliStream');
 
 const fs = require('fs');
 const util = require('util');
@@ -32,29 +33,34 @@ module.exports = class SayCommand extends Command {
 
 
 		const connection = await message.member.voice.channel.join();
-
 		// Construct the request
 		const request = {
 		  input: {text: messageToSpeak},
 		  // Select the language and SSML voice gender (optional)
-		  voice: {languageCode: 'en-US', ssmlGender: 'NEUTRAL'},
+		  voice: {languageCode: 'de-DE', ssmlGender: 'MALE'},
 		  // select the type of audio encoding
 		  audioConfig: {audioEncoding: 'MP3'},
 		};
 	  
 		// Performs the text-to-speech request
-		const [response] = await TTSclient.synthesizeSpeech(request);
+		// const [response] = await TTSclient.synthesizeSpeech(request);
 
-		const writeFile = util.promisify(fs.writeFile);
-		await writeFile('output.mp3', response.audioContent, 'binary');
-		console.log('Audio content written to file: output.mp3');	  
+		// const writeFile = util.promisify(fs.writeFile);
+		// await writeFile('output.mp3', response.audioContent, 'binary');
+		// console.log('Audio content written to file: output.mp3');	  
 
-		const dispatcher = connection.play('output.mp3', {
+		// const dispatcher = connection.play('output.mp3', {
 
-			// Add some dispatcher options here!
+		// 	// Add some dispatcher options here!
 
 
-		  });	
+		//   });	
+
+		TTSclient.synthesizeSpeech(request)
+			.then(([response]) => {
+				let stream = createReadStream(response.audioContent);
+				connection.play(stream);
+			})
 
 	  
 		
