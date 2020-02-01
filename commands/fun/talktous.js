@@ -1,7 +1,7 @@
 const { Command } = require('discord.js-commando');
 const textToSpeech = require('@google-cloud/text-to-speech');
 const { createReadStream } = require('../../lib/mutliStream');
-const ttsConfig - require('../../config/ttsConfig.json')
+const ttsConfig = require('../../config/ttsConfig.json')
 
 const fs = require('fs');
 const util = require('util');
