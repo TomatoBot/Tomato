@@ -11,6 +11,7 @@
   "dependencies": {
     "@discordjs/opus": "^0.1.0",
     "@google-cloud/text-to-speech": "^2.1.2",
+    "@google-cloud/translate": "^5.1.6",
     "discord.js": "github:discordjs/discord.js",
     "discord.js-commando": "github:discordjs/Commando",
     "ffbinaries": "^1.1.4",
@@ -23,6 +24,7 @@
     "sodium": "^3.0.2",
     "text-to-speech-js": "^1.1.9",
     "text2wav": "0.0.13",
-    "winston": "^3.2.1"
+    "winston": "^3.2.1",
+    "ytdl-core": "^1.0.9"
   }
 }

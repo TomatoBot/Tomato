@@ -5,7 +5,6 @@ const Discord = require('discord.js');
 const config = require('./config.json');
 const discordUtils = require('./discordUtils.js');
 
-const googleTranslate = require('google-translate')(config.googleCloudAPIKey);
 
 const logger = winston.createLogger({
 	transports: [
@@ -25,8 +24,9 @@ client.registry
 	.registerDefaultTypes()
 	.registerGroups([
 		['moderation', 'Moderation Commands'],
-    ['fun', 'Fun Commands! :)'],
+    	['fun', 'Fun Commands! :)'],
 		['images', 'Image related commands'],
+		['roleplay', 'Commands for roleplaying.'],
 		['owneronly', 'These commands can only be used by the bot owners.'],
 	])
 	.registerDefaultGroups()
@@ -41,42 +41,15 @@ client.registry
 
 	});
 
-	/* client.on("message", message => {
-
-		if(message.author.id === client.user.id) return; // THis is here to prevent the bot from triggering itself.
-
-
-
-
-			googleTranslate.translate(message.content, 'en', function(err, translation) {
-
-				if(translation.detectedSourceLanguage === 'en') return; // prevent the bot from triggering on english
-
-				message.channel.send(`Translated from ${translation.detectedSourceLanguage}:
-				
-				>>> ${translation.translatedText}
-				
-				
-				`)
-
-
-			  });
-			
-
-	});
-	*/
 	client.on('debug', m => logger.log('debug', m));
 	client.on('warn', m => logger.log('warn', m));
 	client.on('error', m => discordUtils.discordDevLogSend(client, config.devLogChannelId, error));
 	process.on('unhandledRejection', error => discordUtils.discordDevLogSend(client, config.devLogChannelId, error));
 
-
-
-
-
-
-
 	client.on('guildCreate', newGuild => {
+
+
+	console.log(`Joined ${newGuild.name}.`)
 
 	const joinedGuildSystemChannel = newGuild.systemChannel;
 
@@ -94,6 +67,30 @@ client.registry
 
 
 	});
+
+	client.on('guildDelete', leftGuild => {
+
+		console.log(`Left ${newGuild.name}.`)
+
+
+
+	});
+
+
+	client.on('message', message => {
+
+		if (message.channel.type === 'dm') {
+
+			console.log(`[DM] From ${message.author.username} to ${message.channel.recipient.username}: ${message.content}`)
+
+
+		}
+
+
+	})
+
+
+
 
 
 client.login(config.token);
